@@ -25,7 +25,7 @@ class GhostCursor {
   loop() {
     this.cx += (this.mx - this.cx) * 0.15;
     this.cy += (this.my - this.cy) * 0.15;
-    if (this.el) this.el.style.transform = `translate(${this.cx - 13}px, ${this.cy - 13}px)`;
+    if (this.el) this.el.style.transform = `translate(${this.cx - 18}px, ${this.cy - 18}px)`;
     let px = this.cx, py = this.cy;
     this.trails.forEach((t, i) => {
       const s = 0.08 - i * 0.01;

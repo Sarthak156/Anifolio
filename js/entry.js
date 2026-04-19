@@ -1,19 +1,19 @@
 /* ============================================
-   Entry Screen — Mangekyo Sharingan Animation
-   ============================================ */
+    Entry Screen — Mangekyo Sharingan Animation
+    ============================================ */
 
 class EntryScreen {
   constructor(onComplete) {
     this.screen = document.getElementById('entry-screen');
-    this.svg = document.querySelector('.mangekyo-svg');
+    this.video = document.querySelector('.mangekyo-video');
     this.onComplete = onComplete;
     this.init();
   }
 
   init() {
-    // After SVG appears (1.5s appear + 0.5s delay = 2s), start spinning
+    // After video appears (1.5s appear + 0.5s delay = 2s), start spinning
     setTimeout(() => {
-      if (this.svg) this.svg.classList.add('spinning');
+      if (this.video) this.video.classList.add('spinning');
     }, 2000);
 
     // Click or wait to proceed
@@ -33,9 +33,9 @@ class EntryScreen {
     this._opened = true;
 
     // Accelerate spin
-    if (this.svg) {
-      this.svg.classList.remove('spinning');
-      this.svg.classList.add('accelerating');
+    if (this.video) {
+      this.video.classList.remove('spinning');
+      this.video.classList.add('accelerating');
     }
 
     // After acceleration, do iris reveal

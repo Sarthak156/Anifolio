@@ -53,12 +53,11 @@ body.cursor-hover .cursor-core {
   will-change: transform;
 }
 
-body.custom-cursor-active,
-body.custom-cursor-active a,
-body.custom-cursor-active button,
-body.custom-cursor-active input,
-body.custom-cursor-active textarea,
-body.custom-cursor-active [onclick] {
+body.custom-cursor-active {
+  cursor: none !important;
+}
+
+body.custom-cursor-active * {
   cursor: none !important;
 }
 
@@ -192,4 +191,31 @@ body.custom-cursor-active [onclick] {
   body.custom-cursor-active a,
   body.custom-cursor-active button { cursor: auto !important; }
   .music-toggle { bottom: 12px; right: 12px; width: 36px; height: 36px; }
+}
+
+/* ── Navigation Arrows ── */
+.nav-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 3rem;
+  color: var(--text-dim);
+  z-index: var(--z-nav);
+  cursor: pointer;
+  opacity: 0.3;
+  transition: opacity 0.3s ease, color 0.3s ease;
+  padding: 1rem;
+  user-select: none;
+}
+
+.nav-arrow:hover {
+  opacity: 1;
+  color: var(--neon-purple);
+}
+
+.nav-arrow-left { left: 10px; }
+.nav-arrow-right { right: 10px; }
+
+@media (max-width: 768px) {
+  .nav-arrow { display: none; }
 }
