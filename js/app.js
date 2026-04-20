@@ -28,21 +28,7 @@ class App {
     // 2. Init portal transition
     this.portal = new PortalTransition();
 
-    // 3. Handle intro video
-    const introVideo = document.querySelector('.intro-video');
-    if (introVideo) {
-      introVideo.addEventListener('ended', () => {
-        const overlay = document.getElementById('intro-overlay');
-        if (overlay) overlay.classList.add('fade-out');
-      });
-      // Fallback: fade out after 6 seconds if video doesn't end
-      setTimeout(() => {
-        const overlay = document.getElementById('intro-overlay');
-        if (overlay && !overlay.classList.contains('fade-out')) {
-          overlay.classList.add('fade-out');
-        }
-      }, 6000);
-    }
+
 
     // 4. Show nav and landing
     this.onEntryComplete();
