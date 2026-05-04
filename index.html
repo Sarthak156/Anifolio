@@ -15,8 +15,31 @@
 </head>
 <body>
 
-<!-- THREE.JS CANVAS -->
-<canvas id="three-canvas"></canvas>
+<!-- PARALLAX BACKGROUND -->
+<div class="parallax-background" aria-hidden="true">
+  <div class="vignette"></div>
+  <div class="scene">
+    <img src="assets/background.png" class="parallax-layer home__bg-img" alt="" data-speedx="0.3" data-speedy="0.38" data-speedz="0" data-rotation="0" data-distance="-200" style="z-index:1;width:2800px;top:calc(50% - 390px);left:calc(50% + 10px);">
+    <img src="assets/fog_7.png" class="parallax-layer home__fog-7" alt="" data-speedx="0.27" data-speedy="0.32" data-speedz="0" data-rotation="0" data-distance="850" style="z-index:2;width:1900px;top:calc(50% - 100px);left:calc(50% + 300px);">
+    <img src="assets/mountain_10.png" class="parallax-layer home__mountain-10" alt="" data-speedx="0.195" data-speedy="0.305" data-speedz="0" data-rotation="0" data-distance="1100" style="z-index:3;width:892px;top:calc(50% + 69px);left:calc(50% + 230px);">
+    <img src="assets/fog_6.png" class="parallax-layer home__fog-6" alt="" data-speedx="0.25" data-speedy="0.28" data-speedz="0" data-rotation="0" data-distance="1400" style="z-index:4;width:1610px;top:calc(50% + 85px);left:calc(50% + 10px);">
+    <img src="assets/mountain_9.png" class="parallax-layer home__mountain-9" alt="" data-speedx="0.125" data-speedy="0.155" data-speedz="0.15" data-rotation="0.02" data-distance="1700" style="z-index:5;width:470px;top:calc(50% + 113px);left:calc(50% - 457px);">
+    <img src="assets/mountain_8.png" class="parallax-layer home__mountain-8" alt="" data-speedx="0.1" data-speedy="0.11" data-speedz="0" data-rotation="0.02" data-distance="1800" style="z-index:6;width:810px;top:calc(50% + 86px);left:calc(50% - 202px);">
+    <img src="assets/fog_5.png" class="parallax-layer home__fog-5" alt="" data-speedx="0.16" data-speedy="0.105" data-speedz="0" data-rotation="0" data-distance="1900" style="z-index:7;width:450px;top:calc(50% + 160px);left:calc(50% + 20px);">
+    <img src="assets/mountain_7.png" class="parallax-layer home__mountain-7" alt="" data-speedx="0.1" data-speedy="0.1" data-speedz="0" data-rotation="0.09" data-distance="2000" style="z-index:8;width:538px;top:calc(50% + 123px);left:calc(50% + 305px);">
+    <img src="assets/mountain_6.png" class="parallax-layer home__mountain-6" alt="" data-speedx="0.065" data-speedy="0.05" data-speedz="0.05" data-rotation="0.12" data-distance="2300" style="z-index:10;width:408px;top:calc(50% + 60px);left:calc(50% + 590px);">
+    <img src="assets/fog_4.png" class="parallax-layer home__fog-4" alt="" data-speedx="0.135" data-speedy="0.04" data-speedz="0" data-rotation="0" data-distance="2400" style="z-index:11;width:590px;top:calc(50% + 223px);left:calc(50% - 60px);">
+    <img src="assets/mountain_5.png" class="parallax-layer home__mountain-5" alt="" data-speedx="0.08" data-speedy="0.03" data-speedz="0.13" data-rotation="0.1" data-distance="2550" style="z-index:12;width:625px;top:calc(50% + 250px);left:calc(50% + 130px);">
+    <img src="assets/fog_3.png" class="parallax-layer home__fog-3" alt="" data-speedx="0.11" data-speedy="0.018" data-speedz="0" data-rotation="0" data-distance="2800" style="z-index:13;width:1600px;top:calc(50% + 110px);left:calc(50% - 15px);">
+    <img src="assets/mountain_4.png" class="parallax-layer home__mountain-4" alt="" data-speedx="0.059" data-speedy="0.024" data-speedz="0.35" data-rotation="0.14" data-distance="3200" style="z-index:14;width:700px;top:calc(50% + 196px);left:calc(50% - 350px);">
+    <img src="assets/mountain_3.png" class="parallax-layer home__mountain-3" alt="" data-speedx="0.04" data-speedy="0.018" data-speedz="0.32" data-rotation="0.05" data-distance="3400" style="z-index:15;width:538px;top:calc(50% + 133px);left:calc(50% + 535px);">
+    <img src="assets/fog_2.png" class="parallax-layer home__fog-2" alt="" data-speedx="0.15" data-speedy="0.0115" data-speedz="0" data-rotation="0" data-distance="3600" style="z-index:16;width:1560px;top:calc(50% + 147px);left:calc(50% - 30px);">
+    <img src="assets/mountain_2.png" class="parallax-layer home__mountain-2" alt="" data-speedx="0.0235" data-speedy="0.013" data-speedz="0.42" data-rotation="0.15" data-distance="3800" style="z-index:17;width:690px;top:calc(50% + 154px);left:calc(50% + 412px);">
+    <img src="assets/mountain_1.png" class="parallax-layer home__mountain-1" alt="" data-speedx="0.027" data-speedy="0.018" data-speedz="0.53" data-rotation="0.2" data-distance="4000" style="z-index:18;width:530px;top:calc(50% + 17px);left:calc(50% - 601px);">
+    <img src="assets/black_shadow.png" class="parallax-layer parallax-shadow home__black-shadow" alt="" data-speedx="0" data-speedy="0" data-speedz="0" data-rotation="0" data-distance="0" style="z-index:20;width:100%;bottom:0;left:50%;top:auto;transform:none;">
+    <img src="assets/fog_1.png" class="parallax-layer home__fog-1" alt="" data-speedx="0.12" data-speedy="0.01" data-speedz="0" data-rotation="0" data-distance="4200" style="z-index:21;width:1600px;top:calc(100% - 355px);left:50%;">
+  </div>
+</div>
 
 
 
@@ -81,9 +104,6 @@
 
   <!-- PAGE: LANDING -->
   <div class="page" id="page-landing">
-    <video class="page-bg-video" autoplay muted loop playsinline>
-      <source src="assets/1.mp4" type="video/mp4">
-    </video>
     <div class="page-content">
       <div class="landing-content">
         <p class="genjutsu-text">You've already stepped inside…</p>
@@ -99,9 +119,6 @@
 
   <!-- PAGE: ABOUT -->
   <div class="page" id="page-about">
-    <video class="page-bg-video" autoplay muted loop playsinline>
-      <source src="assets/2.mp4" type="video/mp4">
-    </video>
     <div class="page-content">
       <div class="about-content">
         <p class="section-subtitle">The Illusion Begins</p>
@@ -124,9 +141,6 @@
 
   <!-- PAGE: SKILLS -->
   <div class="page" id="page-skills">
-    <video class="page-bg-video" autoplay muted loop playsinline>
-      <source src="assets/3.mp4" type="video/mp4">
-    </video>
     <div class="page-content">
       <div class="domain-btn-wrap">
         <button class="domain-expand-btn">⟁ Expand Domain ⟁</button>
@@ -156,9 +170,6 @@
 
   <!-- PAGE: PROJECTS -->
   <div class="page" id="page-projects">
-    <video class="page-bg-video" autoplay muted loop playsinline>
-      <source src="assets/4.mp4" type="video/mp4">
-    </video>
     <div class="page-content">
       <p class="section-subtitle">Arise from the Shadows</p>
       <h2 class="section-title">Projects</h2>
@@ -193,9 +204,6 @@
 
   <!-- PAGE: EXPERIENCE -->
   <div class="page" id="page-experience">
-    <video class="page-bg-video" autoplay muted loop playsinline>
-      <source src="assets/5.mp4" type="video/mp4">
-    </video>
     <div class="page-content">
       <p class="section-subtitle">Level Up</p>
       <h2 class="section-title">The Journey</h2>
@@ -246,9 +254,6 @@
 
   <!-- PAGE: CONTACT -->
   <div class="page" id="page-contact">
-    <video class="page-bg-video" autoplay muted loop playsinline>
-      <source src="assets/6.mp4" type="video/mp4">
-    </video>
     <div class="page-content">
       <p class="section-subtitle">The Final Challenge</p>
       <h2 class="section-title">Get In Touch</h2>
@@ -284,8 +289,7 @@
 </div>
 
 <!-- SCRIPTS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="js/three-bg.js"></script>
+<script src="js/parallax-bg.js"></script>
   <script src="js/portal.js"></script>
 <script src="js/special.js"></script>
 <script src="js/app.js"></script>

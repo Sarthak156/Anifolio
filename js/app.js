@@ -21,8 +21,8 @@ class App {
   }
 
   init() {
-    // 1. Init Three.js background
-    this.bg = new ThreeBackground();
+    // 1. Init parallax background
+    this.bg = new ParallaxBackground();
     this.bg.setPreset('landing');
 
     // 2. Init portal transition
