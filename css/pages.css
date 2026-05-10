@@ -634,6 +634,29 @@
 }
 
 @media (max-width:768px) {
+  #page-landing .hero-name {
+    animation: none;
+    filter: none;
+  }
+
+  .domain-expand-btn,
+  .skill-card {
+    animation: none;
+  }
+
+  .cta-btn:hover,
+  .cta-btn.primary:hover,
+  .project-card:hover,
+  .skill-card:hover,
+  .soc-link:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
   .timeline::before {
     left: 16px;
   }

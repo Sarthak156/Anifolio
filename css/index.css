@@ -137,7 +137,7 @@ a { color:inherit; text-decoration:none; }
   overflow: hidden;
   user-select: none;
   -webkit-user-select: none;
-  touch-action: pan-x;
+  touch-action: pan-y;
 }
 
 /* Individual page */
@@ -216,9 +216,45 @@ a { color:inherit; text-decoration:none; }
 }
 
 @media (max-width:768px) {
-  .page { padding: 100px 20px 40px; }
+  body {
+    background: linear-gradient(180deg, #08100c 0%, #040705 52%, #020303 100%);
+  }
+
+  .parallax-background::after {
+    mix-blend-mode: normal;
+  }
+
+  .scene {
+    transform: translate(-50%, -50%) scale(0.82);
+  }
+
+  .parallax-layer {
+    transition: none;
+    will-change: auto;
+  }
+
+  .page {
+    padding: 86px 14px 32px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .page-content {
+    padding: 22px 16px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 
 
 

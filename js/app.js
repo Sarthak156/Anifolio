@@ -147,7 +147,6 @@ class App {
       if (e.target.closest('#app')) {
         this.touchStartX = e.changedTouches[0].screenX;
         this.touchStartY = e.changedTouches[0].screenY;
-        console.log('touchstart', this.touchStartX, this.touchStartY);
       }
     }, { passive: true });
 
@@ -155,7 +154,6 @@ class App {
       if (e.target.closest('#app')) {
         this.touchEndX = e.changedTouches[0].screenX;
         this.touchEndY = e.changedTouches[0].screenY;
-        console.log('touchend', this.touchEndX, this.touchEndY);
         this.handleSwipe();
       }
     }, { passive: true });
@@ -165,19 +163,15 @@ class App {
     const threshold = 50;
     const diffX = this.touchEndX - this.touchStartX;
     const diffY = this.touchEndY - this.touchStartY;
-    console.log('diffX', diffX, 'diffY', diffY, 'threshold', threshold);
 
     // Only trigger if horizontal movement is greater than vertical and exceeds threshold
     if (Math.abs(diffX) < Math.abs(diffY) || Math.abs(diffX) < threshold) return;
 
     const currentIndex = this.pageOrder.indexOf(this.currentPage);
-    console.log('currentIndex', currentIndex, 'page', this.currentPage);
 
     if (diffX > 0 && currentIndex > 0) {
-      console.log('navigating prev');
       this.navigateTo(this.pageOrder[currentIndex - 1]);
     } else if (diffX < 0 && currentIndex < this.pageOrder.length - 1) {
-      console.log('navigating next');
       this.navigateTo(this.pageOrder[currentIndex + 1]);
     }
   }

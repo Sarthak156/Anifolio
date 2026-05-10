@@ -6,13 +6,19 @@ class ParallaxBackground {
   constructor() {
     this.root = document.querySelector('.parallax-background');
     this.scene = this.root?.querySelector('.scene');
-    this.layers = this.root ? Array.from(this.root.querySelectorAll('.parallax-layer')) : [];
+    this.allLayers = this.root ? Array.from(this.root.querySelectorAll('.parallax-layer')) : [];
+    this.layers = this.allLayers;
     this.currentPreset = null;
     this.mouse = { x: 0, y: 0 };
     this.targetMouse = { x: 0, y: 0 };
     this.sceneWidth = 1425;
     this.sceneHeight = 820;
-    this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    this.mobileQuery = window.matchMedia('(max-width: 768px), (pointer: coarse)');
+    this.reducedMotion = this.motionQuery.matches;
+    this.isMobile = this.mobileQuery.matches;
+    this.rafId = null;
+    this.layerState = [];
 
     this.presets = {
       landing: {
@@ -42,9 +48,12 @@ class ParallaxBackground {
     };
 
     this.bindEvents();
+    this.prepareLayers();
     this.scaleScene();
     this.setPreset('landing');
-    this.animate();
+    if (!this.reducedMotion && !this.isMobile) {
+      this.animate();
+    }
   }
 
   bindEvents() {
@@ -52,27 +61,92 @@ class ParallaxBackground {
       this.scaleScene();
     });
 
+    this.motionQuery.addEventListener?.('change', (event) => {
+      this.reducedMotion = event.matches;
+      this.toggleMotion();
+    });
+
+    this.mobileQuery.addEventListener?.('change', (event) => {
+      this.isMobile = event.matches;
+      this.prepareLayers();
+      this.toggleMotion();
+    });
+
+    if (this.isMobile) return;
+
     window.addEventListener('mousemove', (event) => {
       this.targetMouse.x = event.clientX - window.innerWidth / 2;
       this.targetMouse.y = event.clientY - window.innerHeight / 2;
     });
 
-    window.addEventListener('pointermove', (event) => {
-      this.targetMouse.x = event.clientX - window.innerWidth / 2;
-      this.targetMouse.y = event.clientY - window.innerHeight / 2;
-    });
-
-    window.addEventListener('touchmove', (event) => {
-      const touch = event.touches[0];
-      if (!touch) return;
-      this.targetMouse.x = touch.clientX - window.innerWidth / 2;
-      this.targetMouse.y = touch.clientY - window.innerHeight / 2;
-    }, { passive: true });
-
     window.addEventListener('mouseleave', () => {
       this.targetMouse.x = 0;
       this.targetMouse.y = 0;
     });
+  }
+
+  prepareLayers() {
+    if (!this.allLayers.length) return;
+
+    const mobileKeep = new Set([
+      'home__bg-img',
+      'home__mountain-8',
+      'home__mountain-5',
+      'home__fog-3',
+      'home__black-shadow',
+      'home__fog-1'
+    ]);
+
+    this.allLayers.forEach((layer) => {
+      const keepLayer = !this.isMobile || Array.from(layer.classList).some(className => mobileKeep.has(className));
+
+      layer.hidden = !keepLayer;
+      if (!keepLayer) {
+        layer.removeAttribute('src');
+        return;
+      }
+
+      if (!layer.src && layer.dataset.src) {
+        layer.src = layer.dataset.src;
+      }
+    });
+
+    this.layers = this.allLayers.filter(layer => !layer.hidden);
+    this.layerState = this.layers.map((layer) => ({
+      layer,
+      speedX: Number(layer.dataset.speedx || 0),
+      speedY: Number(layer.dataset.speedy || 0),
+      speedZ: Number(layer.dataset.speedz || 0),
+      rotation: Number(layer.dataset.rotation || 0),
+      left: Number(layer.dataset.leftBase || this.getLayerLeft(layer))
+    }));
+  }
+
+  getLayerLeft(layer) {
+    const left = layer.style.left || '';
+    const match = left.match(/calc\(50%\s*([+-])\s*([\d.]+)px\)/);
+
+    if (match) {
+      const offset = Number(match[2]) * (match[1] === '-' ? -1 : 1);
+      const value = (window.innerWidth / 2) + offset;
+      layer.dataset.leftBase = String(value);
+      return value;
+    }
+
+    const parsed = parseFloat(left);
+    const value = Number.isFinite(parsed) ? parsed : window.innerWidth / 2;
+    layer.dataset.leftBase = String(value);
+    return value;
+  }
+
+  toggleMotion() {
+    if (this.reducedMotion || this.isMobile) {
+      if (this.rafId) cancelAnimationFrame(this.rafId);
+      this.rafId = null;
+      return;
+    }
+
+    if (!this.rafId) this.animate();
   }
 
   scaleScene() {
@@ -101,14 +175,9 @@ class ParallaxBackground {
 
     const rotateDegree = (this.mouse.x / Math.max(window.innerWidth / 2, 1)) * 20;
 
-    this.layers.forEach((layer) => {
+    this.layerState.forEach(({ layer, speedX, speedY, speedZ, rotation, left }) => {
       if (layer.classList.contains('parallax-shadow')) return;
 
-      const speedX = Number(layer.dataset.speedx || 0);
-      const speedY = Number(layer.dataset.speedy || 0);
-      const speedZ = Number(layer.dataset.speedz || 0);
-      const rotation = Number(layer.dataset.rotation || 0);
-      const left = parseFloat(getComputedStyle(layer).left) || 0;
       const isInLeft = left < window.innerWidth / 2 ? 1 : -1;
       const zValue = (window.innerWidth / 2 - left) * isInLeft * 0.1;
 
@@ -117,9 +186,9 @@ class ParallaxBackground {
   }
 
   animate() {
-    requestAnimationFrame(() => this.animate());
+    this.rafId = requestAnimationFrame(() => this.animate());
 
-    if (this.reducedMotion) return;
+    if (this.reducedMotion || this.isMobile) return;
 
     this.mouse.x += (this.targetMouse.x - this.mouse.x) * 0.05;
     this.mouse.y += (this.targetMouse.y - this.mouse.y) * 0.05;

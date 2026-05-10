@@ -42,6 +42,7 @@ class GhostCursor {
 class MusicPlayer {
   constructor() {
     this.btn = document.querySelector('.music-toggle');
+    if (!this.btn) return;
     this.audio = new Audio();
     this.audio.src = 'https://cdn.pixabay.com/audio/2024/11/28/audio_3eca47db5a.mp3';
     this.audio.loop = true;

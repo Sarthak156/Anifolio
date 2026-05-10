@@ -123,3 +123,14 @@
 .portal-gate.crack ~ .portal-energy-line { width: 30vw; }
 .portal-gate.opening ~ .portal-energy-line { width: 100vw; }
 .portal-gate.closing ~ .portal-energy-line { width: 0; }
+
+@media (max-width: 768px) {
+  .portal-gate {
+    box-shadow: 0 0 24px var(--neon-purple-glow);
+  }
+
+  .portal-gate.crack,
+  .portal-gate.opening {
+    filter: none;
+  }
+}
